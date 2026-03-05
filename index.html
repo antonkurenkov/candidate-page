@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="ru" data-mode="candidate">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#eef6ff" />
+  <title>Кандидат — AI-секретарь для комфортного найма</title>
+  <meta name="description" content="AI-секретарь «Кандидат» помогает кандидатам и рекрутерам общаться быстрее и спокойнее: резюме, сопроводительные, ответы на типовые вопросы — в одном чате." />
+  <meta property="og:title" content="Кандидат — AI-секретарь для комфортного найма" />
+  <meta property="og:description" content="Комфортное и эффективное взаимодействие кандидата, рекрутера и компании. Сейчас — Telegram-бот, далее — MAX и другие мессенджеры." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/mascot.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Favicon -->
+
+  <!-- Favicon -->
+  <link rel="icon" href="fav.png" type="image/png">
+  <link rel="shortcut icon" href="fav.png" type="image/png">
+
+</head>
+
+<body>
+  <a class="skip" href="#content">Перейти к содержимому</a>
+
+  <!-- background -->
+  <canvas id="neural" aria-hidden="true"></canvas>
+
+  <header class="header">
+    <div class="container header__inner">
+      <a class="brand" href="#top" aria-label="Кандидат — на главную">
+        <img class="brand__mark" src="avatar_512.png" alt="Кандидат" />
+        <span class="brand__text">Кандидат</span>
+        <span class="brand__badge">beta</span>
+      </a>
+
+      <nav class="nav" aria-label="Навигация">
+        <button class="nav__toggle" id="navToggle" aria-label="Открыть меню" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+
+        <div class="nav__links" id="navLinks">
+          <a href="#how" class="nav__link">Как работает</a>
+          <a href="#who" class="nav__link">Кому</a>
+          <a href="#trust" class="nav__link">Принципы</a>
+          <a href="#pricing" class="nav__link">Тариф</a>
+          <a href="#faq" class="nav__link">FAQ</a>
+        </div>
+
+        <a class="btn btn--primary btn--tg" href="https://t.me/gdekandidat" target="_blank" rel="noopener" aria-label="Открыть в Telegram">
+          <svg class="tgIcon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M21.9 4.7c.3-1.3-1-2.2-2.2-1.7L2.9 9.5c-1.2.5-1.2 2.2.1 2.6l4.7 1.5 1.8 5.6c.4 1.2 2 1.4 2.7.5l2.7-3.3 4.8 3.6c1 .7 2.3.1 2.5-1.1L21.9 4.7Zm-3.8 3.1-8.3 7.6-.3 3.2-1.3-4.2 9.9-6.2c.4-.3.1-.6-.3-.4Z"/>
+          </svg>
+          <span class="srOnly">Открыть в Telegram</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- full-width mode switch -->
+    <div class="modeRow">
+      <div class="container">
+        <div class="modeSwitch" role="tablist" aria-label="Режим: кандидат / рекрутер">
+          <button class="modeSwitch__btn" type="button" data-mode="candidate" role="tab" aria-selected="true">
+            <span class="modeDot" aria-hidden="true"></span>
+            Кандидатам
+          </button>
+          <button class="modeSwitch__btn" type="button" data-mode="recruiter" role="tab" aria-selected="false">
+            <span class="modeDot" aria-hidden="true"></span>
+            Рекрутерам
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="top">
+      <div class="container heroGrid">
+        <div class="hero__copy">
+          <div class="pill">
+            <span class="dot" aria-hidden="true"></span>
+            <span>AI-секретарь для найма: спокойнее, быстрее, точнее</span>
+          </div>
+
+          <h1 class="h1">«Кандидат» отвечает за вас.</h1>
+
+          <p class="lead">
+            Один сервис, который ведёт диалог с двух сторон:
+            <strong>кандидату</strong> помогает быстро подготовить материалы,
+            <strong>рекрутеру</strong> — получить ясные ответы и выжимку без созвонов.
+          </p>
+
+          <div class="hero__cta">
+            <a class="btn btn--primary" href="https://t.me/candydate_bot" target="_blank" rel="noopener">
+              Запустить
+              <span class="btn__sub">бесплатно в тестовом режиме</span>
+            </a>
+            <a class="btn btn--ghost" href="#pricing">
+              Тариф и оплата
+              <span class="btn__sub">заглушка платежей</span>
+            </a>
+          </div>
+
+          <div class="hero__meta">
+            <div class="meta">
+              <div class="meta__kpi">24/7</div>
+              <div class="meta__text">асинхронно, без созвонов</div>
+            </div>
+            <div class="meta">
+              <div class="meta__kpi">1 раз</div>
+              <div class="meta__text">рассказали о себе — и всё</div>
+            </div>
+            <div class="meta">
+              <div class="meta__kpi">0%</div>
+              <div class="meta__text">вмешательства в чужие ATS</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- single chat (switchable by slider) -->
+        <div class="hero__chat" aria-label="Пример диалога">
+          <article class="chatCard" data-chat="candidate">
+            <div class="chatCard__top chatCard__top--right">
+              <img class="chatCard__img" src="avatar.gif" alt="Аватар Кандидат" />
+              <div class="chatCard__title">
+                <div class="chatCard__name">Кандидат</div>
+                <div class="chatCard__role">AI-секретарь</div>
+              </div>
+            </div>
+            <div class="chatCard__divider"></div>
+
+            <div class="chatCard__chat">
+              <div class="bubble bubble--you">
+                Привет! Вот резюме:
+                <span class="file">my-new-cv.txt</span>
+              </div>
+
+              <div class="bubble bubble--cand">
+                Готово ✅ Короткая выжимка и ключевые акценты — собраны.
+                <span class="phIcon" title="скрытые детали" aria-hidden="true">⟡</span>
+              </div>
+
+              <div class="bubble bubble--you">
+                Сделай сопроводительное под вакансию <span class="mask">«…»</span>
+              </div>
+
+              <div class="bubble bubble--cand">
+                Сделано ✉️ Тон — уверенно и по делу.
+                <div class="variants" aria-hidden="true">
+                  <span class="v">⚡ кратко</span>
+                  <span class="v">📄 стандарт</span>
+                  <span class="v">😄 с юмором</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="chatCard__foot">
+              <span class="chip">загрузить резюме</span>
+              <span class="chip">сопроводительное</span>
+              <span class="chip">выжимка</span>
+              <span class="chip">FAQ-ответы</span>
+            </div>
+          </article>
+
+          <article class="chatCard" data-chat="recruiter" hidden>
+            <div class="chatCard__top chatCard__top--right">
+              <img class="chatCard__img" src="avatar.gif" alt="Аватар Кандидат" />
+              <div class="chatCard__title chatCard__title--right">
+                <div class="chatCard__name">Кандидат</div>
+                <div class="chatCard__role">AI-секретарь</div>
+              </div>
+            </div>
+            <div class="chatCard__divider"></div>
+
+            <div class="chatCard__chat">
+              <div class="bubble bubble--you">Привет! Опыт в ML — в 2–3 пункта?</div>
+
+              <div class="bubble bubble--cand">
+                Готово: 3 проекта + роль + стек.
+                <span class="phIcon" title="структурированная выжимка" aria-hidden="true">⟡</span>
+                Хотите сравнить с вакансией?
+              </div>
+
+              <div class="bubble bubble--you">
+                Да. Вакансия: стек и задачи <span class="mask">«…»</span>
+              </div>
+
+              <div class="bubble bubble--cand">
+                <strong>Релевантность:</strong> 0.60 <span class="tiny muted">(cosine)</span><br/>
+                <strong>Сильные стороны:</strong> Python/SQL, ETL-пайплайны, оркестрация, быстрый онбординг.<br/>
+                <strong>Уточнить:</strong> DWH/Data Lake, Data Quality, SLA/ownership.
+              </div>
+            </div>
+
+            <div class="chatCard__foot chatCard__foot--left">
+              <span class="chip">связать кандидата</span>
+              <span class="chip">задать вопрос</span>
+              <span class="chip">сравнить</span>
+              <span class="chip">выжимка</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="how">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="h2">Как это работает</h2>
+          <p>Без сложных интеграций и без «магии» в чужих системах — только удобный канал общения.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step card reveal">
+            <div class="step__n">01</div>
+            <h3 class="h3">Загружаете резюме один раз</h3>
+            <p class="muted">Можно добавить портфолио, ссылки, предпочтения и «красные флаги», которые не готовы обсуждать по десять раз.</p>
+          </article>
+
+          <article class="step card reveal">
+            <div class="step__n">02</div>
+            <h3 class="h3">Кандидат отвечает на типовые вопросы</h3>
+            <p class="muted">Асинхронно 24/7: анкеты, уточнения, «а сколько лет опыта» — без когнитивного выгорания.</p>
+          </article>
+
+          <article class="step card reveal">
+            <div class="step__n">03</div>
+            <h3 class="h3">Сравнивает тексты и помогает договориться</h3>
+            <p class="muted">Сопоставляет резюме и вакансию, помогает сформулировать сопроводительное и собрать структурированную выжимку.</p>
+          </article>
+        </div>
+
+        <div class="note card reveal" style="margin-top:12px;">
+          <div class="note__icon" aria-hidden="true">🛡️</div>
+          <div class="note__text">
+            <strong>Этичная модель:</strong> не генерируем заведомо ложные данные, не вмешиваемся в ATS и не «ходим по серым схемам».
+            Мы оптимизируем коммуникацию, а не ломаем процессы.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="who">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="h2">Кому полезно</h2>
+          <p>Один сервис — три стороны процесса. Всем становится проще.</p>
+        </div>
+
+        <div class="tri">
+          <article class="card tri__item reveal">
+            <div class="tri__icon">👤</div>
+            <h3 class="h3">Кандидату</h3>
+            <ul class="list">
+              <li>Единоразовый «рассказ о себе» вместо десятков переписок</li>
+              <li>Сопроводительные письма под вакансию</li>
+              <li>Ответы на типовые вопросы и анкеты любой сложности</li>
+            </ul>
+          </article>
+
+          <article class="card tri__item reveal">
+            <div class="tri__icon">🧩</div>
+            <h3 class="h3">Рекрутеру</h3>
+            <ul class="list">
+              <li>Удобный формат, меньше шума и «догадок»</li>
+              <li>Асинхронно, без созвонов и лишних итераций</li>
+              <li>Выше КПД первичного этапа и меньше рутины</li>
+            </ul>
+          </article>
+
+          <article class="card tri__item reveal">
+            <div class="tri__icon">🏢</div>
+            <h3 class="h3">Компании</h3>
+            <ul class="list">
+              <li>Экономия времени и оплаченных часов сотрудников</li>
+              <li>Меньше «коммуникативных тупиков»</li>
+              <li>Понятнее качество кандидатов на входе в воронку</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="trust">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="h2">Принципы и прозрачность</h2>
+          <p>Коротко и по делу: зачем сервис, как мы работаем, и что делаем с персональными данными.</p>
+        </div>
+
+        <div class="card trustCard reveal">
+          <div style="font-weight:900; font-size:16px;">Документы</div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;">
+            <a class="trustLink" href="https://ferus.tech/manifest.html" target="_blank" rel="noopener">✨ Манифест</a>
+            <a class="trustLink" href="https://ferus.tech/pdn/" target="_blank" rel="noopener">🔒 ПДн</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="pricing">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="h2">Тариф</h2>
+          <p>Сейчас идёт тестирование: бесплатно. Платёжная интеграция появится позже.</p>
+        </div>
+
+        <div class="pricing">
+          <article class="card pricing__card reveal">
+            <div class="pricing__badge">Free beta</div>
+            <div class="pricing__price">0 ₽ <span class="pricing__per">/ сейчас</span></div>
+            <ul class="list">
+              <li>Загрузка резюме</li>
+              <li>Сопроводительные письма</li>
+              <li>Ответы на типовые вопросы</li>
+              <li>Сравнение резюме ↔ вакансия</li>
+            </ul>
+
+            <div class="pricing__cta">
+              <a class="btn btn--primary" href="https://t.me/gdekandidat" target="_blank" rel="noopener">Начать</a>
+              <button class="btn btn--ghost" id="openPay" type="button">Оплата (скоро)</button>
+            </div>
+
+            <p class="tiny muted" style="margin:10px 0 0;">* Заглушка: кнопка оплаты открывает модальное окно. Реальная платёжная система добавится позже.</p>
+          </article>
+
+          <aside class="reveal" style="display:flex; flex-direction:column; gap:12px;">
+            <div class="card" style="padding:18px;">
+              <h3 class="h3" style="margin:0 0 8px;">Что будет дальше</h3>
+              <div class="roadmap">
+                <div class="roadmap__item">
+                  <span class="roadmap__dot"></span>
+                  <div>
+                    <div class="roadmap__t">MAX и другие мессенджеры</div>
+                    <div class="muted tiny">Единый профиль — разные каналы общения.</div>
+                  </div>
+                </div>
+                <div class="roadmap__item">
+                  <span class="roadmap__dot"></span>
+                  <div>
+                    <div class="roadmap__t">Платёжная интеграция</div>
+                    <div class="muted tiny">Подписка, чеки и корректная юридическая обвязка.</div>
+                  </div>
+                </div>
+                <div class="roadmap__item">
+                  <span class="roadmap__dot"></span>
+                  <div>
+                    <div class="roadmap__t">Корпоративные режимы</div>
+                    <div class="muted tiny">Командные рабочие пространства для рекрутмента.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card note" style="padding:16px;">
+              <div class="note__icon" aria-hidden="true">✨</div>
+              <div class="note__text">
+                Хотите ранний доступ?
+                <a class="link" href="https://t.me/gdekandidat" target="_blank" rel="noopener">Присоединяйтесь к группе в Telegram</a>.
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="container">
+        <div class="section__head">
+          <h2 class="h2">FAQ</h2>
+          <p>Коротко о важном — чтобы не было сюрпризов.</p>
+        </div>
+
+        <div class="faq">
+          <details class="card reveal">
+            <summary>Это обход ATS или «накрутка»?</summary>
+            <p class="muted">Нет. Сервис не вмешивается в чужие системы и не ломает процессы — он помогает быстрее и спокойнее обмениваться информацией в чате.</p>
+          </details>
+
+          <details class="card reveal" style="margin-top:12px;">
+            <summary>Гарантирует ли «Кандидат» достоверность?</summary>
+            <p class="muted">Нет: достоверность зависит от данных, которые вводит человек. Мы делаем структуру, скорость и прозрачность коммуникации лучше.</p>
+          </details>
+
+          <details class="card reveal" style="margin-top:12px;">
+            <summary>Какие каналы будут кроме Telegram?</summary>
+            <p class="muted">Планируются интеграции с MAX и другими мессенджерами. Мы стартовали с Telegram, потому что это быстрый путь к удобному MVP.</p>
+          </details>
+
+          <details class="card reveal" style="margin-top:12px;">
+            <summary>Как следить за обновлениями?</summary>
+            <p class="muted">
+              Самый простой способ —
+              <a class="link" href="https://t.me/gdekandidat" target="_blank" rel="noopener">вступить в Telegram-группу</a>.
+            </p>
+          </details>
+        </div>
+
+        <div class="cta card reveal">
+          <div class="cta__copy">
+            <h3 class="h3" style="margin:0 0 6px;">Попробовать «Кандидат»</h3>
+            <p class="muted" style="margin:0;">Если вы цените своё время — вам понравится.</p>
+          </div>
+          <div class="cta__actions">
+            <a class="btn btn--primary" href="https://t.me/candydate_bot" target="_blank" rel="noopener">Открыть</a>
+            <a class="btn btn--ghost" href="#top">Наверх</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left">
+        <div class="brand brand--footer">
+          <img class="brand__mark" src="avatar_512.png" alt="Кандидат" />
+          <span class="brand__text">Кандидат</span>
+        </div>
+        <div class="tiny muted">© <span id="year"></span> • AI-секретарь для найма • candidate.ferus.tech</div>
+      </div>
+      <div class="footer__right">
+        <a class="link tiny" href="https://t.me/candydate_bot" target="_blank" rel="noopener">Telegram</a>
+        <a class="link tiny" href="https://t.me/gdekandidat" target="_blank" rel="noopener">Группа</a>
+        <a class="link tiny" href="#pricing">Тариф</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Payment placeholder modal -->
+  <div class="modal" id="payModal" role="dialog" aria-modal="true" aria-labelledby="payTitle" aria-hidden="true">
+    <div class="modal__backdrop" data-close="true"></div>
+    <div class="modal__panel">
+      <div class="modal__head">
+        <div>
+          <div class="modal__title" id="payTitle">Оплата скоро появится</div>
+          <div class="tiny muted">Здесь будет интеграция с платёжной системой.</div>
+        </div>
+        <button class="iconBtn" data-close="true" aria-label="Закрыть">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <div class="payStub">
+          <div class="payStub__row"><span>Тариф</span><strong>Free beta (0 ₽)</strong></div>
+          <div class="payStub__row"><span>Статус</span><strong>тестируем бесплатно</strong></div>
+          <div class="payStub__row"><span>Будет позже</span><strong>подписка / разовые платежи</strong></div>
+        </div>
+
+        <div class="modal__actions">
+          <a class="btn btn--primary" href="https://t.me/candydate_bot" target="_blank" rel="noopener">Пока попробую в Telegram</a>
+          <button class="btn btn--ghost" data-close="true">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
